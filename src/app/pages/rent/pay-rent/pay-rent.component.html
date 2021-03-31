@@ -1,0 +1,385 @@
+<div class=" header pb-6 pt-6">
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class=" card-header">
+                    <h5 class=" h3 mb-0">Payment Transaction Amount</h5>
+                </div>
+
+                <div class=" card-body">
+                    <div class="chart" id="chartdivpayrent1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class=" card-header">
+                    <h5 class=" h3 mb-0">Payment Trends</h5>
+                </div>
+
+                <div class=" card-body">
+                    <div class="chart" id="chartdivpayrent2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="h3 mb-0"> Transaction Updates/Adjustments </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="dataTables_wrapper py-2">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="datatable_length">
+                                    <label>
+                                        Show
+                                        <select name="datatable_length" aria-controls="datatable"
+                                            class="form-control form-control-sm" (change)="entriesChange($event)">
+                                            <option value="5" [selected]="entries==5">5</option>
+                                            <option value="10" [selected]="entries==10">10</option>
+                                            <option value="15" [selected]="entries==15">15</option>
+                                            <option value="-1" [selected]="entries==-1">All</option>
+                                        </select>
+                                        entries
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="datatable_filter" class="dataTables_filter">
+                                    <label>
+                                        <input type="search" class="form-control form-control-sm"
+                                            placeholder="Search records" aria-controls="datatable"
+                                            (keyup)="filterTable($event)" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries:undefined"
+                            [rows]="temp" [scrollbarH]="true">
+
+                            <ngx-datatable-column name="Transaction Date" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.date}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Document Number" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.apiVersion}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Transaction Reference" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.salary}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Transaction Details" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.typeDoc}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Transaction Type" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.apiName}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Amount" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.amount}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Notes" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.status}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Adjustment Code" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.totalCall}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Action" [width]="50">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <!-- <button class=" btn btn-icon btn-success btn-sm" type="button" title="Subscribe" (click)="showNotification()">
+                                        <span class=" btn-inner--icon"> <i class=" fas fa-user-check"> </i> </span>
+                                    </button> -->
+                                    <button class=" btn btn-icon btn-default btn-sm" type="button" title="Edit"
+                                        (click)="openModal(viewAction)">
+                                        <span class=" btn-inner--icon"> <i class=" fas fa-edit"> </i> </span>
+                                    </button>
+                                    <!-- <button class=" btn btn-icon btn-default btn-sm" type="button" title="View"
+                                        (click)="openModal(viewAction)">
+                                        <span class=" btn-inner--icon"> <i class=" fas fa-eye"> </i> </span>
+                                    </button> -->
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h6 class="h2 text-dark d-inline-block mb-0"> Management of Rental Notices </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class=" col-xl-4">
+                            <div class=" form-group">
+                                <label class=" form-control-label" for="example4cols2Input">
+                                    Account No.
+                                </label>
+
+                                <input class=" form-control" id="example-text-input" type="text"
+                                    placeholder="Type here..." />
+                            </div>
+                        </div>
+                        <div class=" col-xl-4">
+                            <div class=" form-group">
+                                <label class=" form-control-label" for="example4cols2Input">
+                                    Area
+                                </label>
+
+                                <input class=" form-control" id="example-text-input" type="text"
+                                    placeholder="Type here..." />
+                            </div>
+                        </div>
+                        <div class=" col-xl-4">
+                            <div class=" form-group">
+                                <label class=" form-control-label" for="example4cols2Input">
+                                    Date
+                                </label>
+
+                                <input class="form-control" bsDaterangepicker 
+                                    [bsConfig]="{
+										isAnimated: true,
+										containerClass: 'theme-red'
+									}" name="bsDaterangepicker" placeholder="01/01/2020 - 01/01/2021" />
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12 text-right">
+                            <button class="btn btn-default" type="button" (click)="successSwal('sent')"> Send
+                            </button>
+                        </div>
+
+                        <div class="col-xl-12">
+                            <div class="dataTables_wrapper py-4">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="datatable_length">
+                                            <label>
+                                                Show
+                                                <select name="datatable_length" aria-controls="datatable"
+                                                    class="form-control form-control-sm"
+                                                    (change)="entriesChange($event)">
+                                                    <option value="5" [selected]="entries==5">5</option>
+                                                    <option value="10" [selected]="entries==10">10</option>
+                                                    <option value="15" [selected]="entries==15">15</option>
+                                                    <option value="-1" [selected]="entries==-1">All</option>
+                                                </select>
+                                                entries
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-12 col-md-6">
+                                        <div id="datatable_filter" class="dataTables_filter">
+                                            <label>
+                                                <input type="search" class="form-control form-control-sm"
+                                                    placeholder="Search records" aria-controls="datatable"
+                                                    (keyup)="filterTable($event)" />
+                                            </label>
+                                            <button class="btn btn-sm btn-default ml-md-2" type="button"
+                                                (click)="successSwal('download the file')"> Download </button>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'"
+                                    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+                                    [limit]="entries != -1 ? entries:undefined" [rows]="temp" [scrollbarH]="true">
+
+                                    <ngx-datatable-column name="Tenant Account No.">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{row.salary}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Lot No.">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{row.totalCall}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Name of Tenant">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{row.name}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Arrears">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{row.amount}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Action">
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <button class=" btn btn-icon btn-default btn-sm" type="button" title="Excel"
+                                                (click)="successSwal('download Excel')">
+                                                <span class=" btn-inner--icon"> <i class=" fas fa-file-excel"> </i>
+                                                </span>
+                                            </button>
+                                            <button class=" btn btn-icon btn-danger btn-sm" type="button" title="PDF"
+                                                (click)="successSwal('download PDF')">
+                                                <span class=" btn-inner--icon"> <i class=" fas fa-file-pdf"> </i>
+                                                </span>
+                                            </button>
+                                            <button class=" btn btn-icon btn-success btn-sm" type="button"
+                                                title="Pass Payment" (click)="successSwal('paid')">
+                                                <span class=" btn-inner--icon"> <i class=" fas fa-hand-holding-usd">
+                                                    </i> </span>
+                                            </button>
+                                            <button class=" btn btn-icon btn-warning btn-sm" type="button"
+                                                title="Print a receipt" (click)="successSwal('printed')">
+                                                <span class=" btn-inner--icon"> <i class=" fas fa-print"> </i> </span>
+                                            </button>
+                                            <button class=" btn btn-icon btn-danger btn-sm" type="button"
+                                                title="Rent expired" (click)="successSwal('changed')">
+                                                <span class=" btn-inner--icon"> <i class=" fas fa-times-circle"> </i>
+                                                </span>
+                                            </button>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #viewAction>
+    <div class=" modal-header bg-default ">
+        <h6 class=" modal-title text-white" id="modal-title-default">
+            Transaction Updates/Adjustments
+        </h6>
+
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalRef.hide()">
+            <span class="text-white" aria-hidden="true"> × </span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Transaction Date
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Document No.
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Transaction Reference
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Transaction Details
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Transaction Type
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Amount
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Notes
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-lg-4 mt-2">
+                <label class=" form-control-label" for="example4cols2Input">
+                    Adjustment Code
+                </label>
+            </div>
+            <div class="col-lg-8">
+                <input class=" form-control" id="example-text-input" type="text" placeholder="Type here..." />
+            </div>
+        </div>
+    </div>
+
+    <div class=" modal-footer">
+        <button class=" btn btn-default text-white" type="button" class="btn btn-success"
+            (click)="successSwal('updated')">
+            Update
+        </button>
+        <button class=" btn btn-outline-danger ml-auto" data-dismiss="modal" type="button" (click)="modalRef.hide()">
+            Close
+        </button>
+    </div>
+</ng-template>

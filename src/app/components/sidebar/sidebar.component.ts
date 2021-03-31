@@ -63,6 +63,18 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   {
+    path: "/rent",
+    title: "Rent",
+    type: "sub",
+    icontype: "fas fa-money-bill",
+    collapse: "rent",
+    isCollapsed: true,
+    children: [
+      { path: "acc-rent", title: "Rental Account Management", type: "link" },
+      { path: "pay-rent", title: "Management of Rental Bills and Rental Payments", type: "link" },
+    ]
+  },
+  {
     path: "/soft",
     title: "Soft Service Timeline",
     type: "link",

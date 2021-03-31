@@ -1,0 +1,1018 @@
+<div class=" header pb-6 pt-6">
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class=" card">
+                <div class=" card-header">
+                    <div class="row" style="justify-content: space-between;">
+                        <div class="col-6">
+                            <h5 class=" h3 mb-0">Monthly Rental Payment</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" card-body">
+                    <div class="chart" id="chartdivaccrent1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class=" card">
+                <div class=" card-header">
+                    <div class="row" style="justify-content: space-between;">
+                        <div class="col-6">
+                            <h5 class=" h3 mb-0">Deposit Payment</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" card-body">
+                    <div class="chart" id="chartdivaccrent2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card">
+                <!-- <div class="card-header bg-secondary">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="h3 mb-0"> Mesej Templat </h5>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button class="btn btn-default" type="button" (click)="openModal1(ciptaBaru)"> Cipta Baru </button>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="card-body">
+                    <div class="dataTables_wrapper py-2">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="datatable_length">
+                                    <label>
+                                        Show
+                                        <select name="datatable_length" aria-controls="datatable"
+                                            class="form-control form-control-sm" (change)="entriesChange($event)">
+                                            <option value="5" [selected]="entries==5">5</option>
+                                            <option value="10" [selected]="entries==10">10</option>
+                                            <option value="15" [selected]="entries==15">15</option>
+                                            <option value="-1" [selected]="entries==-1">All</option>
+                                        </select>
+                                        entries
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="datatable_filter" class="dataTables_filter">
+                                    <label>
+                                        <input type="search" class="form-control form-control-sm"
+                                            placeholder="Search records" aria-controls="datatable"
+                                            (keyup)="filterTable($event)" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries:undefined"
+                            [rows]="temp" [scrollbarH]="true">
+
+                            <ngx-datatable-column name="Tenant Account No.">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.totalCall}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Tenant ID">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.name}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Type of Tenant">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.typeDoc}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Area Type">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.office}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Old Account No.">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.apiVersion}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Rental Category">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.status}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Action">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <!-- <button class=" btn btn-icon btn-success btn-sm" type="button" title="Subscribe" (click)="showNotification()">
+                                        <span class=" btn-inner--icon"> <i class=" fas fa-user-check"> </i> </span>
+                                    </button> -->
+                                    <button class=" btn btn-icon btn-success btn-sm" type="button" title="Edit"
+                                        (click)="openModal1(editAction)">
+                                        <span class=" btn-inner--icon"> <i class=" fas fa-edit"> </i> </span>
+                                    </button>
+                                    <button class=" btn btn-icon btn-default btn-sm" type="button" title="View"
+                                        (click)="openModal(viewAction)">
+                                        <span class=" btn-inner--icon"> <i class=" fas fa-eye"> </i> </span>
+                                    </button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #viewAction>
+    <div class=" modal-header bg-default ">
+        <h6 class=" modal-title text-white" id="modal-title-default">
+            Rent Assets
+        </h6>
+
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalRef.hide()">
+            <span class="text-white" aria-hidden="true"> × </span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-invoice">
+                    <div class="card-header text-center">
+                        <h5 class=" h4 mb-4 text-center">Rent Assets Info</h5>
+                        <div class="row justify-content-between">
+                            <div class="col-md-4 text-left">
+                                <img alt="Logo" class="mb-2 w-100" src="assets/img/brand/mbpj.png"/>
+
+                                <h6>
+                                    St. Independence Embankment, 050105 Bucharest, Romania
+                                </h6>
+                                <small class="d-block text-muted">
+                                    tel: +4 (074) 1090873
+                                </small>
+                            </div>
+                            <div class="col-lg-3 col-md-5 text-left mt-3">
+                                <h4 class="mb-1">Billed to:</h4>
+                                <span class="d-block"> James Thompson </span>
+                                <p>
+                                    Bld Mihail Kogalniceanu,<br />
+
+                                    7652 Bucharest,<br />
+
+                                    Romania
+                                </p>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row justify-content-md-between">
+                            <div class="col-md-4">
+                                <h3 class="mt-3 text-left">
+                                    Lot no <br />
+
+                                    <small class="mr-2"> AT7459 </small>
+                                </h3>
+                            </div>
+                            <div class="col-lg-4 col-md-5">
+                                <div class="row mt-5">
+                                    <div class="col-md-6">Assets Reference:</div>
+                                    <div class="col-md-6">#0453119</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">Quota:</div>
+                                    <div class="col-md-6">1103/2019</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class=" h4 mb-4 text-center">Latest Billing Information</h5>
+                                <div class="table-responsive">
+                                    <table class="table text-right">
+                                        <thead class="bg-default">
+                                            <tr>
+                                                <th class="text-right text-white" scope="col">
+                                                    Process Deadline No.
+                                                </th>
+                                                <th class="text-right text-white" scope="col">
+                                                    Arrears
+                                                </th>
+                                                <th class="text-right text-white" scope="col">
+                                                    Rent Amount
+                                                </th>
+                                                <th class="text-right text-white" scope="col">
+                                                    Other Fees
+                                                </th>
+                                                <th class="text-right text-white" scope="col">
+                                                    Total bill
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>12/04/2021</td>
+                                                <td>RM 33.00</td>
+                                                <td>RM 95.00</td>
+                                                <td>RM 9.00</td>
+                                                <td>RM 107.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>11/05/2021</td>
+                                                <td>RM 56.00</td>
+                                                <td>RM 67.00</td>
+                                                <td>RM 3.00</td>
+                                                <td>RM 126.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>02/08/2021</td>
+                                                <td>RM 67.00</td>
+                                                <td>RM 457.00</td>
+                                                <td>RM 6.00</td>
+                                                <td>RM 520.00</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="h4">Total</th>
+                                                <th class="text-right h4" colspan="3">RM 753.00</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <div class="col-md-5 ml-auto">
+                            <h5>Thank you!</h5>
+                            <p class="description">
+                                If you encounter any issues related to the invoice you can
+                                contact us at:
+                            </p>
+                            <h6 class="d-block">
+                                email:
+                                <small class="text-muted">
+                                    support@company123.com
+                                </small>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class=" modal-footer">
+        <button class=" btn btn-default text-white" type="button" class="btn btn-success" (click)="successSwal('printed')">
+            Print
+        </button>
+        <button class=" btn btn-outline-danger ml-auto" data-dismiss="modal" type="button" (click)="modalRef.hide()">
+            Close
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #editAction>
+    <div class=" modal-header bg-default ">
+        <h6 class=" modal-title text-white" id="modal-title-default">
+            Update Account
+        </h6>
+
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modalRef.hide()">
+            <span class="text-white" aria-hidden="true"> × </span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 mb-3 text-right">
+                    <a 
+                        *ngIf="!editEnabled"
+                        class="btn btn-default btn-sm text-white btn-icon btn-3" 
+                        (click)="toggleEdit()"
+                    > 
+                        <span class="btn-inner--icon"><i class="fas fa-user-edit"></i></span>
+                        <span class="btn-inner--text">Edit profile</span>
+                    </a>
+                    <a
+                        *ngIf="editEnabled"
+                        class="btn btn-danger btn-sm text-white btn-icon btn-3" 
+                        (click)="toggleEdit()"
+                    > 
+                        <span class="btn-inner--icon"><i class="fas fa-arrow-left"></i></span>
+                        <span class="btn-inner--text">Back</span>
+                    </a>
+                    <a 
+                        *ngIf="editEnabled"
+                        class="btn btn-success btn-sm text-white btn-icon btn-3" 
+                        (click)="confirm()"
+                    > 
+                        <span class="btn-inner--icon"><i class="fas fa-save"></i></span>
+                        <span class="btn-inner--text">Save</span>
+                    </a>
+				</div>
+                
+                <div class="col-xl-4 order-xl-2">
+                    <div class="card card-profile">
+                        <img alt="Image placeholder" class="card-img-top" src="assets/img/theme/img-1-1000x600.jpg" />
+        
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 order-lg-2">
+                                <div class="card-profile-image">
+                                    <a>
+                                        <img class="rounded-circle" src="assets/img/default/avatar.png" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-sm btn-info mr-4" href="javascript:void(0)">
+                                    Connect
+                                </a>
+        
+                                <a class="btn btn-sm btn-default float-right" href="javascript:void(0)">
+                                    Message
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-profile-stats d-flex justify-content-center">
+                                        <div>
+                                            <span class="heading"> 22 </span>
+        
+                                            <span class="description"> Friends </span>
+                                        </div>
+        
+                                        <div>
+                                            <span class="heading"> 10 </span>
+        
+                                            <span class="description"> Photos </span>
+                                        </div>
+        
+                                        <div>
+                                            <span class="heading"> 89 </span>
+        
+                                            <span class="description"> Comments </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="text-center">
+                                <h5 class="h3">
+                                    Ali Imran<span class=" font-weight-light"> , 27 </span>
+                                </h5>
+        
+                                <div class="h5 font-weight-300">
+                                    <i class="fas fa-location-arrow mr-2"> </i> Ampang, Kuala Lumpur
+                                </div>
+        
+                                <div class="h5 mt-4">
+                                    <i class="fas fa-briefcase mr-2"> </i> IT Manager
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-xl-8 order-xl-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h3 *ngIf="!editEnabled" class="mb-0">Profile</h3>
+                                    <h3 *ngIf="editEnabled" class="mb-0"> Edit Profile</h3>
+                                </div>
+        
+                                <div class="col-4 text-right">
+                                    <a  *ngIf="!editEnabled"  class="btn btn-sm btn-primary" href="javascript:void(0)">
+                                        Settings
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card-body">
+                            <form  *ngIf="!editEnabled">
+                                <h6 class="heading-small text-muted mb-4">User information</h6>
+        
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-username">
+                                                    Name
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-username" 
+                                                    placeholder="Name"
+                                                    type="text" 
+                                                    value="Ali Imran"
+                                                    disabled 
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-email">
+                                                    Email address
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-email" 
+                                                    placeholder="Email address"
+                                                    type="email"
+                                                    value="imran@prototype.com.my"
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <hr class="my-4" />
+        
+                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+        
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Tenant Account Number
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Tenant Account Number" 
+                                                    type="text"
+                                                    value="123" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Tenant ID
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Tenant ID"
+                                                    type="text"
+                                                    value="Tiger Nixon" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Type of Tenant
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Type of Tenant"
+                                                    type="text"
+                                                    value="System Architect" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Area Type
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Area Type" 
+                                                    type="text"
+                                                    value="Edinburgh" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Old Account No. 
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Old Account No"
+                                                    type="text"
+                                                    value="1.0.3" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Rental Category
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Rental Category"
+                                                    type="text"
+                                                    value="Success" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Rental Start Date
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Rental Start Date" 
+                                                    type="text"
+                                                    value="30/04/2020" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Rental Expiry Date
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Rental Expiry Date"
+                                                    type="text"
+                                                    value="30/06/2022" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Monthly Rental Rate
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Monthly Rental Rate"
+                                                    type="text"
+                                                    value="RM 1300.00" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Tenant Status
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Tenant Status" 
+                                                    type="text"
+                                                    value="Single" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Rental Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Rental Deposit"
+                                                    type="text"
+                                                    value="RM 2500.00" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Electricity Bills Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Electricity Bills Deposit"
+                                                    type="text"
+                                                    value="RM 500.00" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Phone Bills Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Phone Bills Deposit" 
+                                                    type="text"
+                                                    value="RM 500.00" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Water Bills Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Water Bills Deposit"
+                                                    type="text"
+                                                    value="RM 500.00" 
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 text-right">
+                                            <button class=" btn btn-danger text-white" type="button"  (click)="confirmDelete()">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form [formGroup]="editForm" *ngIf="editEnabled">
+                                <h6 class="heading-small text-muted mb-4">User information</h6>
+        
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-username">
+                                                    Name
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-username" 
+                                                    placeholder="Name"
+                                                    type="text" 
+                                                    value="Ali Imran"
+                                                    formControlName="name" 
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-email">
+                                                    Email address
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-email" 
+                                                    placeholder="Email address"
+                                                    type="email"
+                                                    value="imran@prototype.com.my"
+                                                    formControlName="email"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <hr class="my-4" />
+        
+                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+        
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Tenant Account Number
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Tenant Account Number" 
+                                                    type="text"
+                                                    value="123" 
+                                                    formControlName="accNo"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Tenant ID
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Tenant ID"
+                                                    type="text"
+                                                    value="Tiger Nixon" 
+                                                    formControlName="tenantID"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Type of Tenant
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Type of Tenant"
+                                                    type="text"
+                                                    value="System Architect" 
+                                                    formControlName="typeTenant"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Area Type
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Area Type" 
+                                                    type="text"
+                                                    value="Edinburgh" 
+                                                    formControlName="areaType"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Old Account No. 
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Old Account No"
+                                                    type="text"
+                                                    value="1.0.3" 
+                                                    formControlName="oldAcc"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Rental Category
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Rental Category"
+                                                    type="text"
+                                                    value="Success" 
+                                                    formControlName="rentalCat"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Rental Start Date
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Rental Start Date" 
+                                                    type="text"
+                                                    value="30/04/2020" 
+                                                    formControlName="rentalStart"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Rental Expiry Date
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Rental Expiry Date"
+                                                    type="text"
+                                                    value="30/06/2022" 
+                                                    formControlName="rentalExp"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Monthly Rental Rate
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Monthly Rental Rate"
+                                                    type="text"
+                                                    value="RM 1300.00" 
+                                                    formControlName="monthlyDate"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Tenant Status
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Tenant Status" 
+                                                    type="text"
+                                                    value="Single" 
+                                                    formControlName="tenantStat"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Rental Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Rental Deposit"
+                                                    type="text"
+                                                    value="RM 2500.00" 
+                                                    formControlName="rentalDepo"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-4">
+                                            <div class=" form-group">
+                                                <label class=" form-control-label" for="input-country">
+                                                    Electricity Bills Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Electricity Bills Deposit"
+                                                    type="text"
+                                                    value="RM 500.00" 
+                                                    formControlName="electBill"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">
+                                                    Phone Bills Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-city" 
+                                                    placeholder="Phone Bills Deposit" 
+                                                    type="text"
+                                                    value="RM 500.00"
+                                                    formControlName="phoneBills"
+                                                />
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">
+                                                    Water Bills Deposit
+                                                </label>
+        
+                                                <input 
+                                                    class="form-control"
+                                                    id="input-country"
+                                                    placeholder="Water Bills Deposit"
+                                                    type="text"
+                                                    value="RM 500.00" 
+                                                    formControlName="waterBills"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 text-right">
+                                            <button class=" btn btn-danger text-white" type="button"  (click)="confirmDelete()">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" modal-footer">
+        <button class=" btn btn-success text-white" type="button" (click)="successSwal('saved')">
+            Save
+        </button>
+        <button class=" btn btn-outline-danger ml-auto" data-dismiss="modal" type="button" (click)="modalRef.hide()">
+            Close
+        </button>
+    </div>
+</ng-template>

@@ -27,7 +27,7 @@ import { ComponentsModule } from "./components/components.module";
     ToastrModule.forRoot(),
     CollapseModule.forRoot(),
     TagInputModule,
-    PresentationModule
+    PresentationModule,
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
   providers: [],

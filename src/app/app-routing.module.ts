@@ -34,6 +34,10 @@ const routes: Routes = [
         loadChildren: "./pages/maintenance/maintenance.module#MaintenanceModule"
       },
       {
+        path: "rent",
+        loadChildren: "./pages/rent/rent.module#RentModule"
+      },
+      {
         path: "soft",
         loadChildren: "./pages/soft/soft.module#SoftModule"
       },
